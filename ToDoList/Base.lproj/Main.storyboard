@@ -13,20 +13,20 @@
         <scene sceneID="g9I-2m-yv1">
             <objects>
                 <tableViewController id="Avk-CP-v4y" customClass="ToDoTableViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2YD-Uc-w2K">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="2YD-Uc-w2K">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToDoCellId" rowHeight="67" id="FfL-os-cSw" customClass="ToDoCell" customModule="ToDoList" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="67"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToDoCellId" id="FfL-os-cSw" customClass="ToDoCell" customModule="ToDoList" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FfL-os-cSw" id="w8v-m4-Ukj" customClass="ToDoCell" customModule="ToDoList" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="66.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7Y-AZ-wlu">
-                                            <rect key="frame" x="24" y="15.5" width="36" height="36"/>
+                                            <rect key="frame" x="16" y="4" width="36" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="36" id="3yl-kw-Q26"/>
                                                 <constraint firstAttribute="width" constant="36" id="VyZ-lm-HIl"/>
@@ -38,18 +38,16 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bN0-ss-ab3">
-                                            <rect key="frame" x="68" y="23" width="283" height="21"/>
+                                            <rect key="frame" x="60" y="11.5" width="299" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="bN0-ss-ab3" firstAttribute="centerY" secondItem="w8v-m4-Ukj" secondAttribute="centerY" id="2PE-oU-dkN"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="bN0-ss-ab3" secondAttribute="trailing" constant="8" id="2ek-qG-ANr"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="bN0-ss-ab3" secondAttribute="trailing" constant="8" id="8vS-sc-BmN"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="bN0-ss-ab3" secondAttribute="trailing" id="8vS-sc-BmN"/>
                                         <constraint firstItem="bN0-ss-ab3" firstAttribute="centerY" secondItem="w8v-m4-Ukj" secondAttribute="centerY" id="GbX-Eq-Wqq"/>
-                                        <constraint firstItem="m7Y-AZ-wlu" firstAttribute="leading" secondItem="w8v-m4-Ukj" secondAttribute="leadingMargin" constant="8" id="edT-M0-Qq2"/>
+                                        <constraint firstItem="m7Y-AZ-wlu" firstAttribute="leading" secondItem="w8v-m4-Ukj" secondAttribute="leadingMargin" id="edT-M0-Qq2"/>
                                         <constraint firstItem="m7Y-AZ-wlu" firstAttribute="centerY" secondItem="w8v-m4-Ukj" secondAttribute="centerY" id="hgL-m5-1Z7"/>
                                         <constraint firstItem="bN0-ss-ab3" firstAttribute="leading" secondItem="m7Y-AZ-wlu" secondAttribute="trailing" constant="8" id="xCr-mw-LSK"/>
                                     </constraints>
