@@ -10,8 +10,10 @@ import UIKit
 
 class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
 
+    /// Defining variables
     var todos : [ToDo] = []
     
+    /// Function to build the screen by checking all the todo's
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,16 +21,12 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
             todos = savedToDos
         }
         else {
-//            let todo1 = ToDo(title: "Hi1", isComplete: false, dueDate: Date(), notes: "Test 1")
-//            let todo2 = ToDo(title: "Hi2", isComplete: true, dueDate: Date(), notes: "Test 2")
-//            let todo3 = ToDo(title: "Hi3", isComplete: false, dueDate: Date(), notes: "Test 3")
-            
-            //todos = [todo1, todo2, todo3]
             todos = ToDo.loadSampleToDos()!
         }
         navigationItem.leftBarButtonItem = editButtonItem
     }
 
+    /// Function to check if the checkmarked is active
     func checkmarkTapped(sender: ToDoCell) {
         if let index = tableView.indexPath(for: sender) {
             var todo = todos[index.row]
@@ -39,6 +37,7 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
         }
     }
     
+    /// Action to go back to the list and save the new todo
     @IBAction func unwindtoToDoList(segue: UIStoryboardSegue) {
         guard segue.identifier == "saveUnwind" else { return }
         let sourceVC = segue.source as! NewToDoTableViewController
@@ -57,10 +56,12 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
         ToDo.saveToDos(todos)
     }
     
+    /// Function to give amount of rows
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todos.count
     }
 
+    /// Function to fill in a cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoCellId") as? ToDoCell else {fatalError("Could not dequeue a cell")}
         let todo = todos[indexPath.row]
@@ -71,12 +72,12 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
         return cell
     }
 
-    
+    /// Function to make editing possible
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-
+    /// Function to make removing possible
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             todos.remove(at: indexPath.row)
@@ -85,6 +86,7 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
         }
     }
 
+    /// Action to send the todo to the detail VC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetails" {
             let todoVC = segue.destination as! NewToDoTableViewController

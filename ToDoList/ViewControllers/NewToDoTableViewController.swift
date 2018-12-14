@@ -9,9 +9,11 @@
 import UIKit
 
 class NewToDoTableViewController: UITableViewController {
+    /// Defining variables, like the todo given by the last VC
     var todo : ToDo?
     var isPickerHidden = true
     
+    /// Defining outlets
     @IBOutlet weak var saveBut: UIBarButtonItem!
     @IBOutlet weak var isCompleteBut: UIButton!
     @IBOutlet weak var titleTextField: UITextField!
@@ -19,7 +21,7 @@ class NewToDoTableViewController: UITableViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var notesLabel: UITextView!
     
-    
+    /// Building the screen with all the info for the cells
     override func viewDidLoad() {
         super.viewDidLoad()
         if let todo = todo {
@@ -36,31 +38,38 @@ class NewToDoTableViewController: UITableViewController {
         updateSaveButState()
     }
 
+    /// Function to update the state of the save button
     func updateSaveButState() {
         let text = titleTextField.text ?? ""
         saveBut.isEnabled = !text.isEmpty
     }
     
+    /// Function to update the date label to this moment
     func updateDateLabel(date: Date) {
         dateLabel.text = ToDo.dateFormatter.string(from: date)
     }
     
+    /// Function to update the date label to the data from the picker
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
         updateDateLabel(date: datePicker.date)
     }
     
+    /// Function to check if the title field is edited and make the save button change
     @IBAction func editChange(_ sender: UITextField) {
         updateSaveButState()
     }
     
+    /// Function to deactivate the keyboard
     @IBAction func returnPress(_ sender: UITextField) {
         titleTextField.resignFirstResponder()
     }
     
+    /// Function to update the checkmark picture
     @IBAction func isCompletePress(_ sender: UIButton) {
         isCompleteBut.isSelected = !isCompleteBut.isSelected
     }
 
+    /// Function to adjust the height of the celss
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let normalHeight = CGFloat(44)
         let largeHeight = CGFloat(200)
@@ -75,6 +84,7 @@ class NewToDoTableViewController: UITableViewController {
         }
     }
     
+    /// Function to open or close the date picker
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath {
         case [1,0]:
@@ -89,6 +99,7 @@ class NewToDoTableViewController: UITableViewController {
         }
     }
     
+    /// Action to send the todo back to the list
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
@@ -101,6 +112,4 @@ class NewToDoTableViewController: UITableViewController {
         
         todo = ToDo(title: title, isComplete: isComplete, dueDate: date, notes: notes)
     }
-    
-
 }
