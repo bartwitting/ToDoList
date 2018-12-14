@@ -23,4 +23,9 @@ Dat slaat ie dan op <br/>
 En je kan de lijst op verschillende manieren manipuleren <br/>
 ![Edit](/doc/Edit.png) <br/>
 ![Swipe](/doc/Swipe.png)
-![Delete](/doc/Delete.png)
+![Delete](/doc/Delete.png) <br/>
+
+## In versie 1.1 is een zoekbalk toegevoegd
+![balk](/doc/Search1.png) <br/>
+![zoeken](/doc/Search2.png) <br/>
+![Vinden](/doc/Search3.png) <br/>
