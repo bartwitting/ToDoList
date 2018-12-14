@@ -8,10 +8,17 @@
 
 import UIKit
 
-class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
+class ToDoTableViewController: UITableViewController, ToDoCellDelegate, UISearchBarDelegate {
 
     /// Defining variables
     var todos : [ToDo] = []
+    var oldToDos : [ToDo] = []
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    private func setupSearchBar () {
+        searchBar.delegate = self
+    }
     
     /// Function to build the screen by checking all the todo's
     override func viewDidLoad() {
@@ -23,8 +30,14 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
         else {
             todos = ToDo.loadSampleToDos()!
         }
+        makeCopy()
         navigationItem.leftBarButtonItem = editButtonItem
     }
+    
+    func makeCopy() {
+        oldToDos = todos
+    }
+    
 
     /// Function to check if the checkmarked is active
     func checkmarkTapped(sender: ToDoCell) {
@@ -53,6 +66,7 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
                 tableView.insertRows(at: [newIndex], with: .automatic)
             }
         }
+        makeCopy()
         ToDo.saveToDos(todos)
     }
     
@@ -80,12 +94,25 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
     /// Function to make removing possible
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let todo = todos[indexPath.row]
             todos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             ToDo.saveToDos(todos)
         }
     }
-
+    // Search Bar
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            todos = oldToDos
+            tableView.reloadData()
+            return
+        }
+        todos = oldToDos.filter({ (ToDo) -> Bool in
+            ToDo.title.lowercased().contains(searchText.lowercased())
+        })
+        tableView.reloadData()
+    }
+    
     /// Action to send the todo to the detail VC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetails" {
