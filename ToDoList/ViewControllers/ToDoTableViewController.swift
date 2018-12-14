@@ -14,8 +14,10 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate, UISearch
     var todos : [ToDo] = []
     var oldToDos : [ToDo] = []
     
+    /// Defining outlet
     @IBOutlet weak var searchBar: UISearchBar!
     
+    /// Defining delegate for searchbar
     private func setupSearchBar () {
         searchBar.delegate = self
     }
@@ -34,6 +36,7 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate, UISearch
         navigationItem.leftBarButtonItem = editButtonItem
     }
     
+    /// Function to keep the old todo's
     func makeCopy() {
         oldToDos = todos
     }
@@ -94,13 +97,12 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate, UISearch
     /// Function to make removing possible
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let todo = todos[indexPath.row]
             todos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             ToDo.saveToDos(todos)
         }
     }
-    // Search Bar
+    /// Function for the Search Bar to work
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard !searchText.isEmpty else {
             todos = oldToDos
