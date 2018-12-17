@@ -8,7 +8,7 @@ Je wordt verwelkomd met de lijst van todo's <br/>
 Je kan een nieuwe todo aanmaken <br/>
 ![Nieuwe](/doc/Nieuwe.png) <br/>
 Hier zie je dat de datum veranderd wordt <br/>
-![Datum](/doc/Datum.png) <br/>
+![Datum](/doc/Datum.png)
 ![Datumveranderd](/doc/Datum2.png) <br/>
 Hier staat de nieuwe in de lijst <br/>
 ![Nieuwe](/doc/Welkomnieuw.png) <br/>
@@ -26,6 +26,6 @@ En je kan de lijst op verschillende manieren manipuleren <br/>
 ![Delete](/doc/Delete.png) <br/>
 
 ## In versie 1.1 is een zoekbalk toegevoegd
-![balk](/doc/Search1.png) <br/>
+![balk](/doc/Search1.png)
 ![zoeken](/doc/Search2.png) <br/>
 ![Vinden](/doc/Search3.png) <br/>
