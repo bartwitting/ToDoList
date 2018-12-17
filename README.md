@@ -22,7 +22,7 @@ En je kan de lijst op verschillende manieren manipuleren <br/>
 ![Swipe](/doc/Swipe.png)
 ![Delete](/doc/Delete.png) <br/>
 
-## In versie 1.1 is een zoekbalk toegevoegd
+## In versie 1.1 is een zoekbalk toegevoegd en deze items kunnen ook worden aangepast en verwijderd
 ![balk](/doc/Search1.png)
 ![zoeken](/doc/Search2.png)
 ![Vinden](/doc/Search3.png) <br/>
