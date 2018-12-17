@@ -12,7 +12,8 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate, UISearch
 
     /// Defining variables
     var todos : [ToDo] = []
-    var oldToDos : [ToDo] = []
+    var filteredToDos : [ToDo] = []
+    var searchActive : Bool = false
     
     /// Defining outlet
     @IBOutlet weak var searchBar: UISearchBar!
@@ -32,24 +33,26 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate, UISearch
         else {
             todos = ToDo.loadSampleToDos()!
         }
-        makeCopy()
         navigationItem.leftBarButtonItem = editButtonItem
     }
     
-    /// Function to keep the old todo's
-    func makeCopy() {
-        oldToDos = todos
-    }
-    
-
     /// Function to check if the checkmarked is active
     func checkmarkTapped(sender: ToDoCell) {
         if let index = tableView.indexPath(for: sender) {
-            var todo = todos[index.row]
-            todo.isComplete = !todo.isComplete
-            todos[index.row] = todo
-            tableView.reloadRows(at: [index], with: .automatic)
-            ToDo.saveToDos(todos)
+            if searchActive {
+                var todo = filteredToDos[index.row]
+                todo.isComplete = !todo.isComplete
+                filteredToDos[index.row] = todo
+                tableView.reloadRows(at: [index], with: .automatic)
+                ToDo.saveToDos(filteredToDos)
+            }
+            else {
+                var todo = todos[index.row]
+                todo.isComplete = !todo.isComplete
+                todos[index.row] = todo
+                tableView.reloadRows(at: [index], with: .automatic)
+                ToDo.saveToDos(todos)
+            }
         }
     }
     
@@ -57,31 +60,56 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate, UISearch
     @IBAction func unwindtoToDoList(segue: UIStoryboardSegue) {
         guard segue.identifier == "saveUnwind" else { return }
         let sourceVC = segue.source as! NewToDoTableViewController
-        
-        if let todo = sourceVC.todo {
-            if let selectedIndex = tableView.indexPathForSelectedRow {
-                todos[selectedIndex.row] = todo
-                tableView.reloadRows(at: [selectedIndex], with: .none)
+        if searchActive {
+            if let todo = sourceVC.todo {
+                if let selectedIndex = tableView.indexPathForSelectedRow {
+                    filteredToDos[selectedIndex.row] = todo
+                    tableView.reloadRows(at: [selectedIndex], with: .none)
+                }
+                else {
+                    let newIndex = IndexPath(row: filteredToDos.count, section: 0)
+                    filteredToDos.append(todo)
+                    tableView.insertRows(at: [newIndex], with: .automatic)
+                }
             }
-            else {
-                let newIndex = IndexPath(row: todos.count, section: 0)
-                todos.append(todo)
-                tableView.insertRows(at: [newIndex], with: .automatic)
-            }
+            ToDo.saveToDos(filteredToDos)
         }
-        makeCopy()
-        ToDo.saveToDos(todos)
+        else {
+            if let todo = sourceVC.todo {
+                if let selectedIndex = tableView.indexPathForSelectedRow {
+                    todos[selectedIndex.row] = todo
+                    tableView.reloadRows(at: [selectedIndex], with: .none)
+                }
+                else {
+                    let newIndex = IndexPath(row: todos.count, section: 0)
+                    todos.append(todo)
+                    tableView.insertRows(at: [newIndex], with: .automatic)
+                }
+            }
+            ToDo.saveToDos(todos)
+        }
     }
     
     /// Function to give amount of rows
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todos.count
+        if searchActive {
+            return filteredToDos.count
+        }
+        else {
+            return todos.count
+        }
     }
 
     /// Function to fill in a cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoCellId") as? ToDoCell else {fatalError("Could not dequeue a cell")}
-        let todo = todos[indexPath.row]
+        let todo : ToDo
+        if searchActive {
+            todo = filteredToDos[indexPath.row]
+        }
+        else {
+            todo = todos[indexPath.row]
+        }
         cell.titleLabel?.text = todo.title
         cell.isCompleteButt.isSelected = todo.isComplete
         cell.delegate = self
@@ -97,22 +125,39 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate, UISearch
     /// Function to make removing possible
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            todos.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if searchActive {
+                let todo = filteredToDos[indexPath.row]
+                for i in 0..<todos.count {
+                    if todos[i].title == todo.title {
+                        todos.remove(at: i)
+                        break
+                    }
+                }
+                filteredToDos.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            else {
+                todos.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
             ToDo.saveToDos(todos)
         }
     }
+    
     /// Function for the Search Bar to work
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard !searchText.isEmpty else {
-            todos = oldToDos
+        if searchText.isEmpty || searchText == "" {
+            searchActive = false
+            view.endEditing(true)
             tableView.reloadData()
-            return
         }
-        todos = oldToDos.filter({ (ToDo) -> Bool in
-            ToDo.title.lowercased().contains(searchText.lowercased())
-        })
-        tableView.reloadData()
+        else {
+            searchActive = true
+            filteredToDos = todos.filter({ (ToDo) -> Bool in
+                ToDo.title.lowercased().contains(searchText.lowercased())
+            })
+            tableView.reloadData()
+        }
     }
     
     /// Action to send the todo to the detail VC
@@ -120,9 +165,14 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate, UISearch
         if segue.identifier == "showDetails" {
             let todoVC = segue.destination as! NewToDoTableViewController
             let index = tableView.indexPathForSelectedRow!
-            let selectedToDo = todos[index.row]
+            let selectedToDo : ToDo
+            if searchActive {
+                selectedToDo = filteredToDos[index.row]
+            }
+            else {
+                selectedToDo = todos[index.row]
+            }
             todoVC.todo = selectedToDo
         }
     }
-    
 }
