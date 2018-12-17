@@ -10,15 +10,12 @@ Je kan een nieuwe todo aanmaken <br/>
 Hier zie je dat de datum veranderd wordt <br/>
 ![Datum](/doc/Datum.png)
 ![Datumveranderd](/doc/Datum2.png) <br/>
-Hier staat de nieuwe in de lijst <br/>
-![Nieuwe](/doc/Welkomnieuw.png) <br/>
-Kan de nieuwe aangevinkt worden <br/>
+Hier staat de nieuwe in de lijst en deze kan dan ook aangevinkt worden <br/>
+![Nieuwe](/doc/Welkomnieuw.png)
 ![Check](/doc/Welkomvink.png) <br/>
-Je kunt oude todo's aanpassen <br/>
-![Aanpassen](/doc/Aanpassen.png) <br/>
-Je kunt het vinkje weghalen <br/>
-![Nietklaar](/doc/unvink.png) <br/>
-Dat slaat ie dan op <br/>
+Je kunt oude todo's aanpassen door bijvoorbeeld het vinkje weg te halen <br/>
+![Aanpassen](/doc/Aanpassen.png) 
+![Nietklaar](/doc/unvink.png) 
 ![Verandering](/doc/resultaat.png) <br/>
 En je kan de lijst op verschillende manieren manipuleren <br/>
 ![Edit](/doc/Edit.png) <br/>
