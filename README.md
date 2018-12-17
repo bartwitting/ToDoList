@@ -24,5 +24,5 @@ En je kan de lijst op verschillende manieren manipuleren <br/>
 
 ## In versie 1.1 is een zoekbalk toegevoegd
 ![balk](/doc/Search1.png)
-![zoeken](/doc/Search2.png) <br/>
+![zoeken](/doc/Search2.png)
 ![Vinden](/doc/Search3.png) <br/>
