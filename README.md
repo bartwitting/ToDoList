@@ -11,7 +11,7 @@ Hier zie je dat de datum veranderd wordt <br/>
 ![Datum](/doc/Datum.png) <br/>
 ![Datumveranderd](/doc/Datum2.png) <br/>
 Hier staat de nieuwe in de lijst <br/>
-![Nieuwe](/doc/Welkomnieuwe.png) <br/>
+![Nieuwe](/doc/Welkomnieuw.png) <br/>
 Kan de nieuwe aangevinkt worden <br/>
 ![Check](/doc/Welkomvink.png) <br/>
 Je kunt oude todo's aanpassen <br/>
