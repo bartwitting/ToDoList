@@ -18,7 +18,7 @@ Je kunt oude todo's aanpassen door bijvoorbeeld het vinkje weg te halen <br/>
 ![Nietklaar](/doc/unvink.png) 
 ![Verandering](/doc/resultaat.png) <br/>
 En je kan de lijst op verschillende manieren manipuleren <br/>
-![Edit](/doc/Edit.png) <br/>
+![Edit](/doc/Edit.png)
 ![Swipe](/doc/Swipe.png)
 ![Delete](/doc/Delete.png) <br/>
 
